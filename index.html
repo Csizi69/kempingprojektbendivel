@@ -45,3 +45,36 @@
         <a href="#ujfoglalas" class="btn btn-success">Foglalás készítése</a>
     </div>
 </section>
+<section id="foglalasok" class="container my-5">
+    <h2 class="text-center mb-4">Foglalások</h2>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label class="form-label">Keresés név alapján</label>
+            <input type="text" id="kereses" class="form-control"
+                   placeholder="Vendég neve...">
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Szűrés hely típusa szerint</label>
+            <select id="tipusSzures" class="form-select">
+                <option value="">Minden típus</option>
+                <option value="Sátorhely">Sátorhely</option>
+                <option value="Lakókocsihely">Lakókocsihely</option>
+                <option value="Mobilház">Mobilház</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <button class="btn btn-success" onclick="tablaNezet()">
+            Táblázat
+        </button>
+
+        <button class="btn btn-secondary" onclick="kartyaNezet()">
+            Kártyák
+        </button>
+    </div>
+
+    <div id="foglalasLista"></div>
+</section>
