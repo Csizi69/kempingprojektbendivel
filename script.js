@@ -264,3 +264,93 @@ function foglalasiAr() {
             osszeg.toLocaleString() + " Ft";
     }
 }
+document.getElementById("foglalasForm").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    let nev = document.getElementById("nev").value;
+    let email = document.getElementById("email").value;
+    let telefon = document.getElementById("telefon").value;
+    let helyId = Number(document.getElementById("hely").value);
+    let erkezes = document.getElementById("erkezes").value;
+    let tavozas = document.getElementById("tavozas").value;
+    let vendegek = Number(document.getElementById("vendegek").value);
+
+    let hely = helyek.find(h => h.helyId == helyId);
+
+    if (vendegek > hely.maxSzemely) {
+        hiba("Ezen a helyen maximum " + hely.maxSzemely + " fő tartózkodhat!");
+        return;
+    }
+
+    if (new Date(tavozas) <= new Date(erkezes)) {
+        hiba("A távozás dátumának későbbinek kell lennie az érkezésnél!");
+        return;
+    }
+
+    let foglalt = foglalasok.some(f =>
+        f.helyId == helyId &&
+        erkezes < f.tavozas &&
+        tavozas > f.erkezes
+    );
+
+    if (foglalt) {
+        hiba("Ez a hely ebben az időszakban már foglalt!");
+        return;
+    }
+
+    let ujFoglalas = {
+        foglalasId: Date.now(),
+        helyId: helyId,
+        vendegNev: nev,
+        vendegEmail: email,
+        telefon: telefon,
+        erkezes: erkezes,
+        tavozas: tavozas,
+        vendegekSzama: vendegek
+    };
+
+    foglalasok.push(ujFoglalas);
+
+    document.getElementById("uzenet").innerHTML = `
+        <div class="alert alert-success">
+            <h5>Sikeres foglalás!</h5>
+            <p>
+                <strong>Név:</strong> ${nev}<br>
+                <strong>Hely:</strong> ${hely.helyNev}<br>
+                <strong>Érkezés:</strong> ${erkezes}<br>
+                <strong>Távozás:</strong> ${tavozas}<br>
+                <strong>Vendégek:</strong> ${vendegek}
+            </p>
+        </div>
+    `;
+
+    this.reset();
+
+    document.getElementById("osszeg").textContent = "0 Ft";
+
+    tablaNezet();
+});
+
+function hiba(szoveg) {
+    document.getElementById("uzenet").innerHTML = `
+        <div class="alert alert-danger">
+            ${szoveg}
+        </div>
+    `;
+}
+
+window.addEventListener("scroll", function () {
+    if (window.scrollY > 300) {
+        document.getElementById("topButton").style.display = "block";
+    } else {
+        document.getElementById("topButton").style.display = "none";
+    }
+});
+
+function oldalTeteje() {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+tablaNezet();
