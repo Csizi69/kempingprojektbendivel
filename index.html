@@ -78,3 +78,64 @@
 
     <div id="foglalasLista"></div>
 </section>
+
+<section id="ujfoglalas" class="container my-5">
+    <h2 class="text-center mb-4">Új foglalás</h2>
+
+    <div id="uzenet"></div>
+
+    <form id="foglalasForm" class="row g-3">
+
+        <div class="col-md-6">
+            <label class="form-label">Vendég neve</label>
+            <input type="text" id="nev" class="form-control" required>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">E-mail cím</label>
+            <input type="email" id="email" class="form-control" required>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Telefonszám</label>
+            <input type="tel" id="telefon" class="form-control"
+                   pattern="[0-9+ -]{8,}" required>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Hely</label>
+            <select id="hely" class="form-select" required>
+                <option value="">Válassz helyet!</option>
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label">Érkezés</label>
+            <input type="date" id="erkezes" class="form-control" required>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label">Távozás</label>
+            <input type="date" id="tavozas" class="form-control" required>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label">Vendégek száma</label>
+            <input type="number" id="vendegek" class="form-control"
+                   min="1" value="1" required>
+        </div>
+
+        <div class="col-12">
+            <div class="ar-box">
+                Fizetendő összeg:
+                <strong id="osszeg">0 Ft</strong>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <button type="submit" class="btn btn-success">
+                Foglalás elküldése
+            </button>
+        </div>
+    </form>
+</section>
